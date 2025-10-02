@@ -128,10 +128,10 @@ public class Model {
                 if(tile(x,y)==null){
                     return true;
                 }
-                if(x + 1 < board.size() && tile(x+1, y).value() == tile(x, y).value()){
+                if(x  < board.size() -1 && tile(x, y).value() == tile(x, y).value()){
                     return true;
                 }
-                if(y + 1 < board.size() && tile(x, y + 1).value() == tile(x, y).value()){
+                if(y < board.size() -1 && tile(x, y).value() == tile(x, y).value()){
                     return true;
                 }
                 }
@@ -189,10 +189,22 @@ public class Model {
      * so we are tilting the tiles in this column up.
      * */
     public void tiltColumn(int x) {
-        // TODO: Task 7. Fill in this function.
+        for (int i = board.size() - 2; i >= 0; i--) {
+            if (board.tile(x,i) == null) {
+                continue;
+            } else {
+                moveTileUpAsFarAsPossible(x, i);
+            }
+            // TODO: Task 7. Fill in this function.
+        }
     }
 
     public void tilt(Side side) {
+        board.setViewingPerspective(side);
+        for (int x = 0; x < board.size() ; x++) {
+            tiltColumn(x);
+        }
+        board.setViewingPerspective(Side.NORTH);
         // TODO: Tasks 8 and 9. Fill in this function.
     }
 
